@@ -10,23 +10,38 @@ namespace _Game.Scripts
         [field: SerializeField] 
         private PlayerShip playerShip;
         
-        [field: SerializeField]
-        private SaveLoad saveLoad;
-
         [field: SerializeField] 
         private AlienBoard alienBoard;
 
+        [field: SerializeField] 
+        private UiManager uiManager;
+
+        [field: SerializeField] 
+        private GameOverWall gameOverWall;
+        
+        private SaveLoad _saveLoad;
+
+        private bool _isGameOverActice;
+        
         private void Start()
         {
+            _saveLoad = new SaveLoad();
+            _saveLoad.Load(uiManager);
             Time.timeScale = 1;
 
-            saveLoad.Init();
             alienBoard.Init();
-            alienBoard.gameOverEvent = playerShip.gameOverEvent = RestartTheScene;
+            playerShip.Init();
+
+            gameOverWall.GameOverEnterCallback = RestartTheScene;
+            gameOverWall.GameOverEnterCallback = alienBoard.GameOverCallback =
+                playerShip.GameOverCallback = RestartTheScene;
         }
 
         private void RestartTheScene()
         {
+            if(_isGameOverActice) return;
+            
+            _isGameOverActice = true;
             StartCoroutine(DelayBeforeReloading());
         }
 
@@ -36,7 +51,7 @@ namespace _Game.Scripts
             
             yield return new WaitForSecondsRealtime(3f);
             
-            saveLoad.Save();
+            _saveLoad.Save(uiManager.CurrentHighScore);
             SceneManager.LoadScene(1);
         }
     }

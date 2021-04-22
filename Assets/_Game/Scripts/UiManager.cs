@@ -16,28 +16,29 @@ namespace _Game.Scripts
         private TextMeshProUGUI highScoreNumber;
 
         private int _currentScore;
+        private int _currentHighScore;
 
-        public int HighScoreNumber { get; private set; }
+        public int CurrentHighScore
+        {
+            get => _currentHighScore;
+            set => _currentHighScore = value;
+        }        
 
         public void LoadScoreSetter(int score)
         {
-            HighScoreNumber = score;
-            highScoreNumber.text = HighScoreNumber.ToString();
+            CurrentHighScore = score;
+            highScoreNumber.text = CurrentHighScore.ToString();
         }
 
         public void SetScoreText()
         {
             _currentScore += scoreAddition;
             
-            if (HighScoreNumber < _currentScore)
-                HighScoreNumber = _currentScore;
+            if (CurrentHighScore < _currentScore)
+                CurrentHighScore = _currentScore;
 
             scoreNumber.text = _currentScore.ToString();
-            highScoreNumber.text = HighScoreNumber.ToString();
+            highScoreNumber.text = CurrentHighScore.ToString();
         }
-
-        //Game over 
-        //time scale
-        //yepta
     }
 }

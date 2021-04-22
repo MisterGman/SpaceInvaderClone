@@ -16,7 +16,7 @@ namespace _Game.Scripts
         
         private IEnumerator _cooldownUntilDestroyBullet;
 
-        public Action AllowToShoot;
+        public Action AllowToShootEvent;
 
         private void OnEnable()
         {
@@ -31,13 +31,13 @@ namespace _Game.Scripts
             if (!other.CompareTag("Alien")) return;
             
             other.GetComponent<AlienShip>().EliminateThisShip();
-            StartCoroutine(_cooldownUntilDestroyBullet);
+            StopCoroutine(_cooldownUntilDestroyBullet);
             DestroyBullet();
         }
 
         private void DestroyBullet()
         {
-            AllowToShoot();
+            AllowToShootEvent();
             Destroy(gameObject);
         }
         

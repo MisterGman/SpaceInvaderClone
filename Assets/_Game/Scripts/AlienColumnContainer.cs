@@ -5,11 +5,12 @@ namespace _Game.Scripts
 {
     public class AlienColumnContainer : MonoBehaviour
     {
-        public int EnemiesInColumn { get; set; }
-
-        public Action<AlienColumnContainer> lastShipDestroyedEvent;
-
+        public int EnemiesInColumn { get;  set; }
+        
         public int Index { get; set; }
+
+        public Action<AlienColumnContainer> LastShipDestroyedEvent { get; set; }
+
 
         /// <summary>
         /// Remove from the list until the list becomes empty
@@ -20,7 +21,7 @@ namespace _Game.Scripts
             EnemiesInColumn--;
             
             if (EnemiesInColumn == 0) 
-                lastShipDestroyedEvent(this);
+                LastShipDestroyedEvent(this);
         }
     }
 }

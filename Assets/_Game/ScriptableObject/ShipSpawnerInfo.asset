@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShipSpawnerInfo
   m_EditorClassIdentifier: 
   alienShipPrefab: {fileID: 4955012267029531677, guid: 541640f5a1d792648bd6a2b1b70f4ce0, type: 3}
-  columnContainer: {fileID: 4617578859836020177, guid: 231d8ab961e1c574a8f62738742aedfa, type: 3}
+  columnContainerPrefab: {fileID: 4617578859836020177, guid: 231d8ab961e1c574a8f62738742aedfa, type: 3}
   numberInColumn: 5
   numberOfColumn: 7
   yPadding: 0.8

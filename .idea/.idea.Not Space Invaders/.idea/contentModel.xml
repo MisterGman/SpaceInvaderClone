@@ -17,6 +17,7 @@
             <e p="BulletEnemy.cs" t="Include" />
             <e p="BulletPlayer.cs" t="Include" />
             <e p="GameManager.cs" t="Include" />
+            <e p="GameOverWall.cs" t="Include" />
             <e p="IBulletCooldown.cs" t="Include" />
             <e p="ObjectPooling.cs" t="Include" />
             <e p="PlayerShip.cs" t="Include" />

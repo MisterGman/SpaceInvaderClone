@@ -1,27 +1,23 @@
+using System;
 using System.IO;
 using UnityEngine;
 
 namespace _Game.Scripts
 {
-    public class SaveLoad : MonoBehaviour
+    public class SaveLoad 
     {
-        [field: SerializeField] 
-        private UiManager uiManager;
+        private readonly string _applicationDataPath;
         
-        private string _applicationDataPath;
-        
-        public void Init()
+        public SaveLoad()
         {  
             _applicationDataPath = Application.dataPath + "/save.txt";
-
-            Load();
         }
         
-        public void Save()
+        public void Save(int score)
         {
             var saveData = new SaveData
             {
-                HighScore = uiManager.HighScoreNumber
+                HighScore = score 
             };
             
             var json = JsonUtility.ToJson(saveData);
@@ -29,20 +25,25 @@ namespace _Game.Scripts
             File.WriteAllText(_applicationDataPath, json);
         }
 
-        private void Load()
+        public void Load(UiManager uiManager)
         {
             if (!File.Exists(_applicationDataPath)) return;
-            
+
             var saveFileText = File.ReadAllText(_applicationDataPath);
-                
-            var saveData = JsonUtility.FromJson<SaveData>(saveFileText);
 
+            SaveData saveData;
+
+            try
+            {
+                saveData = JsonUtility.FromJson<SaveData>(saveFileText);
+            }
+            catch (Exception e)
+            {
+                File.WriteAllText(_applicationDataPath,  JsonUtility.ToJson(""));
+                throw;
+            }
+            
             uiManager.LoadScoreSetter(saveData.HighScore);
-        }
-
-        private void OnApplicationQuit()
-        {
-            Save();
         }
     }
     

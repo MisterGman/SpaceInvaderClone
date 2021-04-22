@@ -39,15 +39,20 @@ namespace _Game.Scripts
         /// </summary>
         private float _currentMoveValue;
 
-        public Action gameOverEvent;
+        private Action _gameOverCallback;
+
+        public Action GameOverCallback
+        {
+            get => _gameOverCallback;
+            set => _gameOverCallback = value;
+        }
         
         #endregion
 
-        private void Start()
+        public void Init()
         {
             _transform = transform;
             EnableControls();
-            StartCoroutine(MoveShip());
         }
 
         private void OnDestroy()
@@ -75,53 +80,63 @@ namespace _Game.Scripts
             _playerActions.PlayerControl.Shoot.performed -= ShootBulletHandler;
         }
 
+        /// <summary>
+        /// Set value for horizontal movement
+        /// </summary>
+        /// <param name="obj"></param>
         private void MoveShipHandler(InputAction.CallbackContext obj)
         {
             _currentMoveValue = obj.ReadValue<float>();
         }
         
-        private void StopShipHandler(InputAction.CallbackContext obj)
+        
+        private void StopShipHandler(InputAction.CallbackContext _)
         {
             _currentMoveValue = 0;
         }
 
+        /// <summary>
+        /// Spawn a bullet and lock shooting ability until the bullet is destroyed
+        /// </summary>
+        /// <param name="obj"></param>
         private void ShootBulletHandler(InputAction.CallbackContext obj)
         {
             if (_lockShooting) return;
             
             var bullet = Instantiate(bulletPrefab, cannonShip.position, cannonShip.rotation);
-            bullet.GetComponent<BulletPlayer>().AllowToShoot = AllowToShoot;
+            bullet.GetComponent<BulletPlayer>().AllowToShootEvent = AllowToShootHandler;
             _lockShooting = true;
         }
 
         #endregion
 
-        private void AllowToShoot()
+        /// <summary>
+        /// Allow player to shoot again
+        /// </summary>
+        private void AllowToShootHandler()
         {
             _lockShooting = false;
         }
 
+        /// <summary>
+        /// Destroy ship and end the game
+        /// </summary>
         public void DestroyShip()
         {
-            gameOverEvent();
+            _gameOverCallback();
             Destroy(gameObject);
         }
 
-        private IEnumerator MoveShip()
+        private void Update()
         {
-            while(true)
-            {
-                if (_transform.position.x >= horizontalBoundDistance && _currentMoveValue > 0 ||
-                    _transform.position.x <= -horizontalBoundDistance && _currentMoveValue < 0)
-                {
-                    _currentMoveValue = 0;
-                }
+            var position = _transform.position;
             
-                _transform.position += Vector3.right * (movementSpeed * _currentMoveValue * Time.deltaTime);
+            float newXVal = Mathf.Clamp(position.x + 
+                                           movementSpeed * _currentMoveValue * Time.deltaTime,
+                -horizontalBoundDistance, horizontalBoundDistance);
             
-                yield return new WaitForEndOfFrame();
-            }
-
+            position = new Vector3(newXVal, position.y, position.z);
+            _transform.position = position;
         }
     }
 }

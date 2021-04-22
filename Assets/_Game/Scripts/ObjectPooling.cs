@@ -11,7 +11,7 @@ namespace _Game.Scripts
         private GameObject bulletPrefab;
         
         [field: SerializeField]
-        private int size = 10;
+        private int initialSize = 10;
 
         private readonly Queue<GameObject> _objectFromPool = new Queue<GameObject>();
 
@@ -19,12 +19,15 @@ namespace _Game.Scripts
 
         private void Awake()
         {
-            Instance = this;
+            if(Instance == null)
+                Instance = this;
+            else
+                Destroy(this);
         }
 
         private void Start()
         {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < initialSize; i++)
             {
                 var go = Instantiate(bulletPrefab);
                 _objectFromPool.Enqueue(go);
@@ -32,7 +35,7 @@ namespace _Game.Scripts
             }
         }
 
-        public GameObject SpawnFromPool(Vector3 pos, Quaternion rot)
+        public void SpawnFromPool(Vector3 pos, Quaternion rot)
         {
             if (_objectFromPool.Count > 0)
             {
@@ -42,12 +45,12 @@ namespace _Game.Scripts
                 spawnObj.transform.position = pos;
                 spawnObj.transform.rotation = rot;
 
-                return spawnObj;
             }
             else
             {
                 var spawnObj = Instantiate(bulletPrefab);
-                return spawnObj;
+                spawnObj.transform.position = pos;
+                spawnObj.transform.rotation = rot;
             }
         }
 

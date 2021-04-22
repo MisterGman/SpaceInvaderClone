@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ebe3c439-5931-4be8-a0c7-fc7925f94678" name="Default Changelist" comment="" />
+    <list default="true" id="ebe3c439-5931-4be8-a0c7-fc7925f94678" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Not Space Invaders/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Not Space Invaders/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Not Space Invaders/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Not Space Invaders/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Not Space Invaders/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Not Space Invaders/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Prefabs/BulletEnemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Prefabs/BulletEnemy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Prefabs/BulletPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Prefabs/BulletPlayer.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scenes/MainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/ScriptableObject/ShipSpawnerInfo.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/ScriptableObject/ShipSpawnerInfo.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/AlienBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/AlienBoard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/AlienColumnContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/AlienColumnContainer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/AlienShip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/AlienShip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/BulletPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/BulletPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/ObjectPooling.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/ObjectPooling.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/PlayerShip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/PlayerShip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/SaveLoad.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/SaveLoad.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/ShipSpawnerSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/ShipSpawnerSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/UiManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UiManager.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/UiManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -20,28 +41,31 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/StartGame.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/GameOverWall.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/EnemyHolderManager.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/NewBehaviourScript.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/Bullet.cs" />
-      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/ObjectPooling.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/IBulletCooldown.cs" />
-      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/ShipSpawnerSO.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/StartGame.cs" />
-      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/UiManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/PlayerShip.cs" />
+      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/ShipSpawnerSO.cs" />
+      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/ObjectPooling.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/BulletEnemy.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/BulletPlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/AlienShip.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/AlienColumnContainer.cs" />
+      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/UiManager.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/SaveLoad.cs" />
-      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/AlienBoard.cs" />
+      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/AlienShip.cs" />
+      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/GameOverWall.cs" />
       <option value="$PROJECT_DIR$/Assets/_Game/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/AlienBoard.cs" />
+      <option value="$PROJECT_DIR$/Assets/_Game/Scripts/PlayerShip.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1rTy07poMLmjQp0vBXuSAGOZw44" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,6 +78,7 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RiderTodoViewSettings" groupByProject="false" />
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
@@ -83,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619014148770</updated>
       <workItem from="1619014150973" duration="27265000" />
-      <workItem from="1619080760310" duration="18130000" />
+      <workItem from="1619080760310" duration="27114000" />
     </task>
     <servers />
   </component>
@@ -92,6 +117,17 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>

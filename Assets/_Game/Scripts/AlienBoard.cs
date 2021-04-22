@@ -17,15 +17,22 @@ namespace _Game.Scripts
         private ShipSpawnerSO shipSpawnerInfo;
         
         [field: SerializeField, 
-                Tooltip("Horizontal step for each rate")] 
+                Tooltip("Distance from the center for player to stop")]    
+        private float horizontalBoundDistance = 3f;
+        
+        [field: SerializeField, 
+                Tooltip("Horizontal step for each rate"), 
+                Range(.1f, 1f)] 
         private float moveDistance = .4f;
         
         [field: SerializeField, 
-                Tooltip("Vertical step when bound is reached")] 
+                Tooltip("Vertical step when bound is reached"), 
+                Range(.1f, 1f)] 
         private float moveDistanceVertical = .4f;
 
         [field: SerializeField, 
-                Tooltip("Standard move rate")] 
+                Tooltip("Standard move rate"), 
+                Range(.1f, 1f)] 
         private float defaultMoveRate = .5f;
 
         /// <summary>
@@ -35,7 +42,13 @@ namespace _Game.Scripts
 
         private Transform _transform;
 
-        public Action gameOverEvent;
+        private Action gameOverCallback;
+
+        public Action GameOverCallback
+        {
+            get => gameOverCallback;
+            set => gameOverCallback = value;
+        }
         
         #endregion
 
@@ -46,41 +59,50 @@ namespace _Game.Scripts
             SpawnShips();
             
             foreach (var column in _alienColumns) 
-                column.lastShipDestroyedEvent = LastShipDestroyedCallback;
+                column.LastShipDestroyedEvent = LastShipDestroyedCallback;
             
             StartCoroutine(MoveBoard());
         }
 
         /// <summary>
-        /// Event handler
+        /// Checks if all columns were destroyed
         /// </summary>
         /// <param name="column">Column that was destroyed recently</param>
         private void LastShipDestroyedCallback(AlienColumnContainer column)
         {
-            var index = _alienColumns.FindIndex(container => container.Index == column.Index);
+            for (int i = 0; i < _alienColumns.Count; i++)
+            {
+                if (_alienColumns[i].Index != column.Index) continue;
+                
+                _alienColumns.RemoveAt(i);
+                break;
+            }
             
-            _alienColumns.RemoveAt(index);
-
             if (_alienColumns.Count != 0) return;
 
-            gameOverEvent();
+            gameOverCallback();
+        }
+
+        private void ForceGameOver()
+        {
+            gameOverCallback();
         }
 
         /// <summary>
-        /// Spawn the whole board
+        /// Spawn the whole board with columns and with ships inside them
         /// </summary>
         private void SpawnShips()
         {
-            RecenterBoard(shipSpawnerInfo.xPadding * shipSpawnerInfo.numberOfColumn - 1);
+            RecenterBoard(shipSpawnerInfo.XPadding * shipSpawnerInfo.NumberOfColumn - 1);
 
             var currentPositionX = Vector3.zero;
 
-            for (int i = 0; i < shipSpawnerInfo.numberOfColumn; i++)
+            for (int i = 0; i < shipSpawnerInfo.NumberOfColumn; i++)
             {
                 var currentPositionY = Vector3.zero;
             
                 //Create a new column
-                Transform newColumnTransform = Instantiate(shipSpawnerInfo.columnContainer, 
+                Transform newColumnTransform = Instantiate(shipSpawnerInfo.ColumnContainerPrefab, 
                     Vector3.zero, Quaternion.identity, _transform).transform;
                 
                 newColumnTransform.name = $"Column {i}";
@@ -89,34 +111,43 @@ namespace _Game.Scripts
                     newColumnTransform.GetComponent<AlienColumnContainer>();
 
                 newColumnComponent.Index = i;
+                newColumnComponent.EnemiesInColumn = shipSpawnerInfo.NumberInColumn;
                 
                 //Add this column to the board's list
                 _alienColumns.Add(newColumnComponent);
-            
-                for (int j = 0; j < shipSpawnerInfo.numberInColumn; j++)
-                {
-                    //Create a new ship
-                    GameObject newShipGameObject = Instantiate(shipSpawnerInfo.alienShipPrefab,
-                        currentPositionY, Quaternion.identity, newColumnTransform);
-                    
-                    AlienShip newShipComponent = newShipGameObject.GetComponent<AlienShip>();
-                    
-                    
-                    //Add the event handler to the parent column
-                    newShipComponent.destroyShipEvent += newColumnComponent.EliminateLowestShipHandler;
-                    newShipComponent.destroyShipEvent += uiManager.SetScoreText;
-                    newShipComponent.gameOverEnterEvent += gameOverEvent;
-                    
-                    //Increase the count in the list
-                    newColumnComponent.EnemiesInColumn++;
 
-                    //Set the next ship lower by the Y padding
-                    currentPositionY.y -= shipSpawnerInfo.yPadding;
-                }
-                
+                SpawnShipInsideColumn(newColumnTransform, newColumnComponent, currentPositionY);
+
                 //Set the next column to the right by the X padding
                 newColumnTransform.localPosition = currentPositionX;
-                currentPositionX.x += shipSpawnerInfo.xPadding;
+                currentPositionX.x += shipSpawnerInfo.XPadding;
+            }
+        }
+
+        /// <summary>
+        /// Spawn ships inside columns 
+        /// </summary>
+        /// <param name="columnTransform"></param>
+        /// <param name="columnContainer"></param>
+        /// <param name="newYpos"></param>
+        private void SpawnShipInsideColumn(Transform columnTransform, 
+            AlienColumnContainer columnContainer, Vector3 newYpos)
+        {
+            for (int j = 0; j < shipSpawnerInfo.NumberInColumn; j++)
+            {
+                //Create a new ship
+                GameObject newShipGameObject = Instantiate(shipSpawnerInfo.AlienShipPrefab,
+                    newYpos, Quaternion.identity, columnTransform);
+                    
+                AlienShip newShipComponent = newShipGameObject.GetComponent<AlienShip>();
+                
+                //Add the event handler to the parent column
+                newShipComponent.DestroyShipCallback += columnContainer.EliminateLowestShipHandler;
+                newShipComponent.DestroyShipCallback += uiManager.SetScoreText;
+                newShipComponent.GameOverEnterCallback += ForceGameOver;
+
+                //Set the next ship lower by the Y padding
+                newYpos.y -= shipSpawnerInfo.YPadding;
             }
         }
 
@@ -126,24 +157,32 @@ namespace _Game.Scripts
         /// <param name="width"></param>
         private void RecenterBoard(float width)
         {
-            var transformPosition = _transform.position;
-            transformPosition.x -= width / 2;
-            _transform.position = transformPosition;
+            var boardPos = _transform.position;
+            boardPos.x -= width / 2.0f;
+            _transform.position = boardPos;
         }
 
+        /// <summary>
+        /// Move the whole board with a delay
+        /// If it touches boundaries, it goes down with delay
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator MoveBoard()
         {
-            while (true) //TODO: While not game over
+            yield return new WaitForSeconds(defaultMoveRate);
+
+            while (true)
             {
                 _transform.position += Vector3.right * moveDistance;
-                //
+
                 yield return new WaitForSeconds(defaultMoveRate);
 
-                if (_alienColumns[0].transform.position.x <= -3f ||
-                    _alienColumns[_alienColumns.Count - 1].transform.position.x >= 3f) //TODO: Declare numbers here
+                if (_alienColumns[0].transform.position.x <= -horizontalBoundDistance ||
+                    _alienColumns[_alienColumns.Count - 1].transform.position.x >= horizontalBoundDistance)
                 {
-                    moveDistance = -moveDistance;
+                    moveDistance *= -1;
                     _transform.position += Vector3.down * moveDistanceVertical;
+                    
                     yield return new WaitForSeconds(defaultMoveRate);
                 }
             }

@@ -8,7 +8,7 @@ namespace _Game.Scripts
     {
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 SceneManager.LoadScene(1);
             }
